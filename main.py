@@ -8,7 +8,6 @@ from argparse import ArgumentParser
 
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
-# A list of recommended continuous control environments
 environments = [
     "LunarLanderContinuous-v2",
     "BipedalWalker-v3",
@@ -30,13 +29,13 @@ def run_ddpg(env_name, n_games=1000):
     metrics = []
 
     for i in range(n_games):
-        state, info = env.reset()
+        state, _ = env.reset()
         agent.action_noise.reset()
 
         term, trunc, score = False, False, 0
         while not term and not trunc:
             action = agent.choose_action(state)
-            next_state, reward, term, trunc, info = env.step(action)
+            next_state, reward, term, trunc, _ = env.step(action)
 
             agent.store_transition(state, action, reward, next_state, term or trunc)
             agent.learn()
@@ -69,14 +68,13 @@ def run_ddpg(env_name, n_games=1000):
     df = pd.DataFrame(metrics)
     df.to_csv(f"results/{env_name}_metrics.csv", index=False)
 
-    # Generate animation
     frames = []
-    state, info = env.reset()
+    state, _ = env.reset()
     term, trunc = False, False
     while not term and not trunc:
         frames.append(env.render(mode="rgb_array"))
         action = agent.choose_action(state)
-        next_state, reward, term, trunc, info = env.step(action)
+        next_state, reward, term, trunc, _ = env.step(action)
         state = next_state
 
     save_animation(frames, f"environments/{env_name}.gif")
@@ -90,9 +88,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.env:
-        # Run with the specified environment
         run_ddpg(args.env)
     else:
-        # Cycle through the list of recommended environments
         for env_name in environments:
             run_ddpg(env_name)
