@@ -8,7 +8,7 @@ from argparse import ArgumentParser
 
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
-# just a handy reference of good continuous control environments ;)
+# A list of recommended continuous control environments
 environments = [
     "LunarLanderContinuous-v2",
     "BipedalWalker-v3",
@@ -20,21 +20,16 @@ environments = [
     "Humanoid-v4",
 ]
 
-if __name__ == "__main__":
-    parser = ArgumentParser()
-    parser.add_argument("-e", "--env", default="LunarLanderContinuous-v2")
-    args = parser.parse_args()
 
-    N_GAMES = 1000
-
-    env = gym.make(args.env)
+def run_ddpg(env_name, n_games=1000):
+    env = gym.make(env_name)
     agent = DDPGAgent(env.observation_space.shape, env.action_space.shape, tau=0.001)
 
     best_score = env.reward_range[0]
-    history = list()
+    history = []
     metrics = []
 
-    for i in range(N_GAMES):
+    for i in range(n_games):
         state, info = env.reset()
         agent.action_noise.reset()
 
@@ -42,7 +37,6 @@ if __name__ == "__main__":
         while not term and not trunc:
             action = agent.choose_action(state)
             next_state, reward, term, trunc, info = env.step(action)
-            # done = True if term or trunc else False
 
             agent.store_transition(state, action, reward, next_state, term or trunc)
             agent.learn()
@@ -67,14 +61,15 @@ if __name__ == "__main__":
         )
 
         print(
-            f"[Episode {i + 1:04}/{N_GAMES}]\tScore = {score:.4f}\tAverage = {avg_score:4f}",
+            f"[{env_name} Episode {i + 1:04}/{n_games}]\tScore = {score:.4f}\tAverage = {avg_score:4f}",
             end="\r",
         )
 
-    plot_running_avg(history, args.env)
+    plot_running_avg(history, env_name)
     df = pd.DataFrame(metrics)
-    df.to_csv("results/{args.env}_metrics.csv", index=False)
+    df.to_csv(f"results/{env_name}_metrics.csv", index=False)
 
+    # Generate animation
     frames = []
     state, info = env.reset()
     term, trunc = False, False
@@ -84,4 +79,20 @@ if __name__ == "__main__":
         next_state, reward, term, trunc, info = env.step(action)
         state = next_state
 
-    save_animation(frames, f"environments/{args.env}.gif")
+    save_animation(frames, f"environments/{env_name}.gif")
+
+
+if __name__ == "__main__":
+    parser = ArgumentParser()
+    parser.add_argument(
+        "-e", "--env", default=None, help="Environment name from Gymnasium"
+    )
+    args = parser.parse_args()
+
+    if args.env:
+        # Run with the specified environment
+        run_ddpg(args.env)
+    else:
+        # Cycle through the list of recommended environments
+        for env_name in environments:
+            run_ddpg(env_name)
