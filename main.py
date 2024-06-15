@@ -8,6 +8,18 @@ from argparse import ArgumentParser
 
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
+# just a handy reference of good continuous control environments ;)
+environments = [
+    "LunarLanderContinuous-v2",
+    "BipedalWalker-v3",
+    "Pendulum-v1",
+    "MountainCarContinuous-v0",
+    "Ant-v4",
+    "HalfCheetah-v4",
+    "Hopper-v4",
+    "Humanoid-v4",
+]
+
 if __name__ == "__main__":
     parser = ArgumentParser()
     parser.add_argument("-e", "--env", default="LunarLanderContinuous-v2")
