@@ -66,7 +66,7 @@ def run_ddpg(env_name, n_games=1000):
 
     plot_running_avg(history, env_name)
     df = pd.DataFrame(metrics)
-    df.to_csv(f"results/{env_name}_metrics.csv", index=False)
+    df.to_csv(f"metrics/{env_name}_metrics.csv", index=False)
 
     frames = []
     state, _ = env.reset()
