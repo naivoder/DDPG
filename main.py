@@ -60,7 +60,7 @@ def run_ddpg(env_name, n_games=1000):
         )
 
         print(
-            f"[{env_name} Episode {i + 1:04}/{n_games}]\tScore = {score:.4f}\tAverage = {avg_score:4f}",
+            f"[{env_name} Episode {i + 1:04}/{n_games}]    Score = {score:7.4f}    Average = {avg_score:7.4f}",
             end="\r",
         )
 
