@@ -37,7 +37,7 @@ python main.py --env 'LunarLanderContinuous-v2'
 ## Environments
 
 _Pendulum-v1_  
-~[Pendulum-v1 Animation](environments/Pendulum-v1.gif)
+![Pendulum-v1 Animation](environments/Pendulum-v1.gif)
 
 _LunarLanderContinuous-v2_  
 ![LunarLanderContinuous-v2 Animation](environments/LunarLanderContinuous-v2.gif)
