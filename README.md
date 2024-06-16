@@ -1,6 +1,45 @@
 # Deep Deterministic Policy Gradients (DDPG)
 
-This repository contains an implementation of the Deep Deterministic Policy Gradients (DDPG) algorithm. The implementation is evaluated on various standard continuous control environments from the Gymnasium library.
+This repository contains an implementation of the Deep Deterministic Policy Gradients (DDPG) algorithm as described in the paper ["Continuous control with deep reinforcement learning" by Lillicrap et al](https://arxiv.org/abs/1509.02971). The implementation is evaluated on various standard continuous control environments from the Gymnasium and MuJoCo libraries.
+
+<table>
+    <tr>
+        <td>
+            <p><b>Pendulum-v1</b></p>
+            <img src="environments/Pendulum-v1.gif" width="200"/>
+        </td>
+        <td>
+            <p><b>LunarLanderContinuous-v2</b></p>
+            <img src="environments/LunarLanderContinuous-v2.gif" width="200" height="200"/>
+        </td>
+        <td>
+            <p><b>MountainCarContinuous-v0</b></p>
+            <img src="environments/MountainCarContinuous-v0.gif" width="200" height="200"/>
+        </td>
+        <td>
+            <p><b>BipedalWalker-v3</b></p>
+            <img src="environments/BipedalWalker-v3.gif" width="200" height="200"/>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p><b>Hopper-v4</b></p>
+            <img src="environments/Hopper-v4.gif" width="200"/>
+        </td>
+        <td>
+            <p><b>Humanoid-v4</b></p>
+            <img src="environments/Humanoid-v4.gif" width="200"/>
+        </td>
+        <td>
+            <p><b>Ant-v4</b></p>
+            <img src="environments/Ant-v4.gif" width="200"/>
+        </td>
+        <td>
+            <p><b>HalfCheetah-v4</b></p>
+            <img src="environments/HalfCheetah-v4.gif" width="200"/>
+        </td>
+    </tr>
+</table>
 
 ## Overview
 
@@ -34,32 +73,6 @@ You can run the algorithm on any supported Gymnasium environment. For example:
 python main.py --env 'LunarLanderContinuous-v2'
 ```
 
-## Environments
-
-_Pendulum-v1_  
-![Pendulum-v1 Animation](environments/Pendulum-v1.gif)
-
-_LunarLanderContinuous-v2_  
-![LunarLanderContinuous-v2 Animation](environments/LunarLanderContinuous-v2.gif)
-
-_MountainCarContinuous-v0_  
-![MountainCarContinuous-v0 Animation](environments/MountainCarContinuous-v0.gif)
-
-_BipedalWalker-v3_  
-![BipedalWalker-v3 Animation](environments/BipedalWalker-v3.gif)
-
-_Hopper-v4_  
-![Hopper-v4 Animation](environments/Hopper-v4.gif)
-
-_Humanoid-v4_  
-![Humanoid-v4 Animation](environments/Humanoid-v4.gif)
-
-_Ant-v4_  
-![Ant-v4 Animation](environments/Ant-v4.gif)
-
-_HalfCheetah-v4_  
-![HalfCheetah-v4 Animation](environments/HalfCheetah-v4.gif)
-
 ## Acknowledgements
 
-This implementation is based on the DDPG algorithm as described in the paper ["Continuous control with deep reinforcement learning" by Lillicrap et al](https://arxiv.org/abs/1509.02971).
+Special thanks to Phil Tabor, an excellent teacher!
