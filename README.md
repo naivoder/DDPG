@@ -5,38 +5,38 @@ This repository contains an implementation of the Deep Deterministic Policy Grad
 <table>
     <tr>
         <td>
-            <p><b>Pendulum-v1</b></p>
-            <img src="environments/Pendulum-v1.gif" width="200"/>
+            <p><b>Pendulum</b></p>
+            <img src="environments/Pendulum-v1.gif"  width="150" height="150"/>
         </td>
         <td>
-            <p><b>LunarLanderContinuous-v2</b></p>
-            <img src="environments/LunarLanderContinuous-v2.gif" width="200" height="200"/>
+            <p><b>LunarLanderContinuous</b></p>
+            <img src="environments/LunarLanderContinuous-v2.gif" width="150" height="150"/>
         </td>
         <td>
-            <p><b>MountainCarContinuous-v0</b></p>
-            <img src="environments/MountainCarContinuous-v0.gif" width="200" height="200"/>
+            <p><b>MountainCarContinuous</b></p>
+            <img src="environments/MountainCarContinuous-v0.gif"  width="150" height="150"/>
         </td>
         <td>
-            <p><b>BipedalWalker-v3</b></p>
-            <img src="environments/BipedalWalker-v3.gif" width="200" height="200"/>
+            <p><b>BipedalWalker</b></p>
+            <img src="environments/BipedalWalker-v3.gif"  width="150" height="150"/>
         </td>
     </tr>
     <tr>
         <td>
-            <p><b>Hopper-v4</b></p>
-            <img src="environments/Hopper-v4.gif" width="200"/>
+            <p><b>Hopper</b></p>
+            <img src="environments/Hopper-v4.gif"  width="150" height="150"/>
         </td>
         <td>
-            <p><b>Humanoid-v4</b></p>
-            <img src="environments/Humanoid-v4.gif" width="200"/>
+            <p><b>Humanoid</b></p>
+            <img src="environments/Humanoid-v4.gif"  width="150" height="150"/>
         </td>
         <td>
-            <p><b>Ant-v4</b></p>
-            <img src="environments/Ant-v4.gif" width="200"/>
+            <p><b>Ant</b></p>
+            <img src="environments/Ant-v4.gif"  width="150" height="150"/>
         </td>
         <td>
-            <p><b>HalfCheetah-v4</b></p>
-            <img src="environments/HalfCheetah-v4.gif" width="200"/>
+            <p><b>HalfCheetah</b></p>
+            <img src="environments/HalfCheetah-v4.gif"  width="150" height="150"/>
         </td>
     </tr>
 </table>
