@@ -16,28 +16,6 @@ The paper introduces Deep Deterministic Policy Gradient (DDPG), an actor-critic,
 - **Utilization of Batch Normalization:** DDPG incorporates batch normalization to manage the diverse scale of inputs effectively, especially when dealing with different physical units and varied ranges across environments. This normalization standardizes each input dimension to have zero mean and unit variance within each mini-batch, facilitating faster and more stable training. This technique not only helps in adapting the network to changes in input scales without manual tuning but also enhances the generalization of the model across different tasks.
 - **End-to-End Learning from Pixels:** DDPG demonstrates the ability to learn policies directly from raw pixel inputs across various tasks, proving the algorithm's robustness and versatility.
 
-### Summary of Gradient Updates During Learning
-
-#### Critic Loss
-
-The critic loss function is taken with respect to the parameters of the critic network, not the actions directly. The critic network approximates the action-value function ( Q ), and the goal is to minimize the error in this approximation. The critic loss function is defined as:
-
-![Critic Loss Function](https://latex.codecogs.com/png.latex?L(\theta^Q)%20=%20\mathbb{E}_{s,%20a,%20r,%20s'}%20\left[%(r%20+%20\gamma%20Q'(s',%20\mu'(s'|\theta^{\mu'}))%20-%20Q(s,%20a|\theta^Q))^2%20\right])
-
-where ( Q' ) and ( \mu' ) are target networks for the critic and actor, respectively.
-
-The gradient of the critic loss with respect to the critic parameters ( \theta^Q ) is given by:
-
-![Gradient of Critic Loss](https://latex.codecogs.com/png.latex?\nabla_{\theta^Q}%20L%20=%20\mathbb{E}_{s,%20a,%20r,%20s'}%20\left[%(r%20+%20\gamma%20Q'(s',%20\mu'(s'|\theta^{\mu'}))%20-%20Q(s,%20a|\theta^Q))%20\nabla_{\theta^Q}%20Q(s,%20a|\theta^Q)%20\right])
-
-#### Actor Loss
-
-The actor's objective is to maximize the expected return, which is achieved by taking actions that maximize the action-value function as estimated by the critic. The actor does not have a traditional loss function like the critic; instead, it is updated using the policy gradient. The gradient of the expected return ( J ) with respect to the actor parameters is given by:
-
-![Gradient of Expected Return](https://latex.codecogs.com/png.latex?\nabla_{\theta^\mu}%20J%20\approx%20\mathbb{E}_{s}%20\left[%20\nabla_a%20Q(s,%20a|\theta^Q)%20|_{a=\mu(s)}%20\nabla_{\theta^\mu}%20\mu(s|\theta^\mu)%20\right])
-
-This gradient shows how the parameters ( \theta^\mu ) of the actor network should be adjusted to improve the policy. Specifically, the actor's parameters are updated to increase the expected action-value ( Q ).
-
 ## Setup
 
 ### Requirements
