@@ -37,17 +37,28 @@ python main.py --env 'LunarLanderContinuous-v2'
 ## Environments
 
 _Pendulum-v1_  
-<img src="environments/Pendulum-v1.gif" alt="Pendulum-v1" loop=infinite>
+~[Pendulum-v1 Animation](environments/Pendulum-v1.gif)
 
-_Hopper-v4_  
-![Hopper-v4 Animation](environments/Hopper-v4.gif)
+_LunarLanderContinuous-v2_  
+![LunarLanderContinuous-v2 Animation](environments/LunarLanderContinuous-v2.gif)
 
 _MountainCarContinuous-v0_  
 ![MountainCarContinuous-v0 Animation](environments/MountainCarContinuous-v0.gif)
 
-_Humanoid-v4 (relatable...)_  
-![Humanoid-v4 Animation](environments/Humanoid-v4_relatable.gif)
+_BipedalWalker-v3_  
+![BipedalWalker-v3 Animation](environments/BipedalWalker-v3.gif)
 
+_Hopper-v4_  
+![Hopper-v4 Animation](environments/Hopper-v4.gif)
+
+_Humanoid-v4_  
+![Humanoid-v4 Animation](environments/Humanoid-v4.gif)
+
+_Ant-v4_  
+![Ant-v4 Animation](environments/Ant-v4.gif)
+
+_HalfCheetah-v4_  
+![HalfCheetah-v4 Animation](environments/HalfCheetah-v4.gif)
 
 ## Acknowledgements
 
