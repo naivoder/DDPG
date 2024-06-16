@@ -27,16 +27,15 @@ for fname in ["metrics", "environments", "weights"]:
 
 def run_ddpg(env_name, seed, n_games=1000):
     env = gym.make(env_name, render_mode="rgb_array")
-    env.seed(seed)
     np.random.seed(seed)
-    agent = DDPGAgent(env.observation_space.shape, env.action_space.shape, tau=0.001)
+    agent = DDPGAgent(env_name, env.observation_space.shape, env.action_space.shape, tau=0.001)
 
     best_score = env.reward_range[0]
     history = []
     metrics = []
 
     for i in range(n_games):
-        state, _ = env.reset()
+        state, _ = env.reset(seed=seed)
         agent.action_noise.reset()
 
         term, trunc, score = False, False, 0
@@ -76,13 +75,12 @@ def run_ddpg(env_name, seed, n_games=1000):
 
 def save_best_version(env_name, best_seed):
     env = gym.make(env_name, render_mode="rgb_array")
-    env.seed(best_seed)
     np.random.seed(best_seed)
-    agent = DDPGAgent(env.observation_space.shape, env.action_space.shape, tau=0.001)
+    agent = DDPGAgent(env_name, env.observation_space.shape, env.action_space.shape, tau=0.001)
     agent.load_checkpoints()
 
     frames = []
-    state, _ = env.reset()
+    state, _ = env.reset(seed=best_seed)
     term, trunc = False, False
     while not term and not trunc:
         frames.append(env.render())
