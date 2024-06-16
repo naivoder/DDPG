@@ -10,7 +10,6 @@ import os
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 environments = [
-    "BipedalWalker-v3",
     "Pendulum-v1",
     "MountainCarContinuous-v0",
     "Ant-v4",
@@ -18,11 +17,12 @@ environments = [
     "Hopper-v4",
     "Humanoid-v4",
     "LunarLanderContinuous-v2",
+    "BipedalWalker-v3",
 ]
 
 
 def run_ddpg(env_name, n_games=1000):
-    env = gym.make(env_name)
+    env = gym.make(env_name, render_mode="rgb_array")
     agent = DDPGAgent(
         env_name, env.observation_space.shape, env.action_space.shape, tau=0.001
     )
