@@ -75,7 +75,7 @@ def run_ddpg(env_name, n_games=1000):
     state, _ = env.reset()
     term, trunc = False, False
     while not term and not trunc:
-        frames.append(env.render(mode="rgb_array"))
+        frames.append(env.render())
         action = agent.choose_action(state)
         next_state, reward, term, trunc, _ = env.step(action)
         state = next_state
