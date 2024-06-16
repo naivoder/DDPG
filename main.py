@@ -20,10 +20,6 @@ environments = [
     "LunarLanderContinuous-v2",
 ]
 
-for fname in ["metrics", "environments", "weights"]:
-    if not os.path.exists(fname):
-        os.makedirs(fname)
-
 
 def run_ddpg(env_name, n_games=1000):
     env = gym.make(env_name)
@@ -93,6 +89,10 @@ if __name__ == "__main__":
         "-e", "--env", default=None, help="Environment name from Gymnasium"
     )
     args = parser.parse_args()
+
+    for fname in ["metrics", "environments", "weights"]:
+        if not os.path.exists(fname):
+            os.makedirs(fname)
 
     if args.env:
         run_ddpg(args.env)
