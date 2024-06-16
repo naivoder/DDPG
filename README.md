@@ -38,18 +38,6 @@ The actor's objective is to maximize the expected return, which is achieved by t
 
 This gradient shows how the parameters ( \theta^\mu ) of the actor network should be adjusted to improve the policy. Specifically, the actor's parameters are updated to increase the expected action-value ( Q ).
 
-#### Relationship Between Actor and Critic Updates
-
-- **Critic**: The critic evaluates the action-value function ( Q ) by minimizing the loss function with respect to its parameters ( \theta^Q ).
-- **Actor**: The actor's parameters ( \theta^\mu ) are updated to maximize the action-value function ( Q ), where ( a = \mu(s) ). This is done by taking the gradient of the action-value function with respect to the action, and then with respect to the actor's parameters.
-
-#### Summary
-
-- The critic's loss function is minimized with respect to the critic's parameters ( \theta^Q ).
-- The actor's policy is improved by maximizing the action-value function, and the gradient for the actor is taken with respect to the actor's parameters ( \theta^\mu ).
-
-So, while the critic does evaluate the actions taken, its loss function is ultimately about adjusting its own parameters to better approximate ( Q ). Conversely, the actor updates its parameters to take better actions according to the critic's evaluations.
-
 ## Setup
 
 ### Requirements
@@ -70,8 +58,18 @@ python main.py --env 'LunarLanderContinuous-v2'
 
 ## Environments
 
-_LunarLanderContinuous-v2_
-Best Score:
+_Pendulum-v1_  
+![Pendulum-v1 Animation](environments/Pendulum-v1.gif)
+
+_Hopper-v4_  
+![Hopper-v4 Animation](environments/Hopper-v4.gif)
+
+_MountainCarContinuous-v0_  
+![MountainCarContinuous-v0 Animation](environments/MountainCarContinuous-v0.gif)
+
+_Humanoid-v4 (relatable...)_  
+![Humanoid-v4 Animation](environments/Humanoid-v4_relatable.gif)
+
 
 ## Acknowledgements
 
