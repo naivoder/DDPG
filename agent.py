@@ -10,6 +10,7 @@ from copy import deepcopy
 class DDPGAgent(torch.nn.Module):
     def __init__(
         self,
+        env_name,
         input_dims,
         n_actions,
         tau,
@@ -29,11 +30,31 @@ class DDPGAgent(torch.nn.Module):
         self.replay_buffer = ReplayBuffer(input_dims, n_actions, buffer_length=mem_size)
         self.action_noise = OrnsteinUhlenbeckActionNoise(np.zeros(n_actions))
 
-        self.actor = ActorNetwork(input_dims, n_actions, lr=self.alpha)
-        self.target_actor = ActorNetwork(input_dims, n_actions, lr=self.alpha)
+        self.actor = ActorNetwork(
+            input_dims,
+            n_actions,
+            lr=self.alpha,
+            chkpt_path=f"weights/{env_name}_actor.pt",
+        )
+        self.target_actor = ActorNetwork(
+            input_dims,
+            n_actions,
+            lr=self.alpha,
+            chkpt_path=f"weights/{env_name}_actor.pt",
+        )
 
-        self.critic = CriticNetwork(input_dims, n_actions, lr=self.beta)
-        self.target_critic = CriticNetwork(input_dims, n_actions, lr=self.beta)
+        self.critic = CriticNetwork(
+            input_dims,
+            n_actions,
+            lr=self.beta,
+            chkpt_path=f"weights/{env_name}_actor.pt",
+        )
+        self.target_critic = CriticNetwork(
+            input_dims,
+            n_actions,
+            lr=self.beta,
+            chkpt_path=f"weights/{env_name}_actor.pt",
+        )
 
         self.update_network_parameters(tau=1)
 

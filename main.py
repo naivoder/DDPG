@@ -27,7 +27,9 @@ for fname in ["metrics", "environments", "weights"]:
 
 def run_ddpg(env_name, n_games=1000):
     env = gym.make(env_name)
-    agent = DDPGAgent(env.observation_space.shape, env.action_space.shape, tau=0.001)
+    agent = DDPGAgent(
+        env_name, env.observation_space.shape, env.action_space.shape, tau=0.001
+    )
 
     best_score = env.reward_range[0]
     history = []
