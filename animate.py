@@ -13,14 +13,14 @@ def generate_animation(env_name):
     agent.load_checkpoints()
     
     frames = []
-    states = env.reset()
-    states = torch.tensor(states, dtype=torch.float32).to(device)
+    state, _ = env.reset()
+
     term, trunc = False, False
     while not term and not trunc:
         frames.append(env.render())
-        actions = agent.choose_action(states)
-        next_states, rewards, term, trunc, _ = env.step(actions)
-        states = torch.tensor(next_states, dtype=torch.float32).to(device)
+        action = agent.choose_action(state)
+        next_state, _, term, trunc, _ = env.step(action)
+        state = next_state
     
     save_animation(frames, f"environments/{env_name}.gif")
     print(f"Animation saved as environments/{env_name}.gif")
