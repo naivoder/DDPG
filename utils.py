@@ -4,7 +4,7 @@ import imageio
 
 
 def save_animation(frames, filename):
-    with imageio.get_writer(filename, mode="I") as writer:
+    with imageio.get_writer(filename, mode="I", loop=0) as writer:
         for frame in frames:
             writer.append_data(frame)
 
