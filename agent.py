@@ -39,20 +39,20 @@ class DDPGAgent(torch.nn.Module):
             input_dims,
             n_actions,
             lr=self.alpha,
-            chkpt_path=f"weights/{env_name}_actor.pt",
+            chkpt_path=f"weights/{env_name}_target_actor.pt",
         )
 
         self.critic = CriticNetwork(
             input_dims,
             n_actions,
             lr=self.beta,
-            chkpt_path=f"weights/{env_name}_actor.pt",
+            chkpt_path=f"weights/{env_name}_critic.pt",
         )
         self.target_critic = CriticNetwork(
             input_dims,
             n_actions,
             lr=self.beta,
-            chkpt_path=f"weights/{env_name}_actor.pt",
+            chkpt_path=f"weights/{env_name}_target_critic.pt",
         )
 
         self.update_network_parameters(tau=1)
