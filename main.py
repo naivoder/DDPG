@@ -5,11 +5,11 @@ from utils import plot_running_avg, save_animation
 import pandas as pd
 import warnings
 from argparse import ArgumentParser
+import os
 
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 environments = [
-    "LunarLanderContinuous-v2",
     "BipedalWalker-v3",
     "Pendulum-v1",
     "MountainCarContinuous-v0",
@@ -17,7 +17,12 @@ environments = [
     "HalfCheetah-v4",
     "Hopper-v4",
     "Humanoid-v4",
+    "LunarLanderContinuous-v2",
 ]
+
+for fname in ["metrics", "environments", "weights"]:
+    if not os.path.exists(fname):
+        os.makedirs(fname)
 
 
 def run_ddpg(env_name, n_games=1000):
