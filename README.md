@@ -59,7 +59,7 @@ python main.py --env 'LunarLanderContinuous-v2'
 ## Environments
 
 _Pendulum-v1_  
-![Pendulum-v1 Animation](environments/Pendulum-v1.gif)
+<img src="environments/Pendulum-v1.gif" alt="Pendulum-v1" loop=infinite>
 
 _Hopper-v4_  
 ![Hopper-v4 Animation](environments/Hopper-v4.gif)
