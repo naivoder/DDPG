@@ -4,7 +4,6 @@ from noise import OrnsteinUhlenbeckActionNoise
 from actor import ActorNetwork
 from critic import CriticNetwork
 from memory import ReplayBuffer
-from copy import deepcopy
 
 
 class DDPGAgent(torch.nn.Module):
