@@ -24,9 +24,8 @@ environments = [
     "InvertedPendulum-v4",
     "Pusher-v4",
     "Reacher-v4",
-    "Swimmer-v4",
+    "Swimmer-v2",
     "Walker2d-v4",
-    "CartPole-v1",
 ]
 
 
@@ -82,7 +81,9 @@ def run_ddpg(env_name, n_games=1000, seed=None):
     return history, metrics, best_score, agent
 
 
-def save_best_version(env_name, agent, seeds=5):
+def save_best_version(env_name, agent, seeds=10):
+    agent.load_checkpoints()
+    
     best_total_reward = float("-inf")
     best_frames = None
 
@@ -108,7 +109,6 @@ def save_best_version(env_name, agent, seeds=5):
             best_frames = frames
 
     save_animation(best_frames, f"environments/{env_name}.gif")
-    print(f"Total reward for saved animation: {best_total_reward}")
 
 
 if __name__ == "__main__":

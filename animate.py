@@ -12,18 +12,27 @@ def generate_animation(env_name):
     
     agent.load_checkpoints()
     
-    frames = []
-    state, _ = env.reset()
+    best_total_reward = float("-inf")
+    best_frames = None
 
-    term, trunc = False, False
-    while not term and not trunc:
-        frames.append(env.render())
-        action = agent.choose_action(state)
-        next_state, _, term, trunc, _ = env.step(action)
-        state = next_state
-    
-    save_animation(frames, f"environments/{env_name}.gif")
-    print(f"Animation saved as environments/{env_name}.gif")
+    for _ in range(10):
+        frames = []
+        total_reward = 0
+
+        state, _ = env.reset()
+        term, trunc = False, False
+        while not term and not trunc:
+            frames.append(env.render())
+            action = agent.choose_action(state)
+            next_state, reward, term, trunc, _ = env.step(action)
+            state = next_state
+            total_reward += reward
+
+        if total_reward > best_total_reward:
+            best_total_reward = total_reward
+            best_frames = frames
+
+    save_animation(best_frames, f"environments/{env_name}.gif")
 
 if __name__ == "__main__":
     parser = ArgumentParser()
