@@ -116,6 +116,9 @@ if __name__ == "__main__":
     parser.add_argument(
         "-e", "--env", default=None, help="Environment name from Gymnasium"
     )
+    parser.add_argument(
+        "-n", "--n_games", default=1000, help="Number of episodes (games) to run during training"
+    )
     args = parser.parse_args()
 
     for fname in ["metrics", "environments", "weights"]:
@@ -123,14 +126,14 @@ if __name__ == "__main__":
             os.makedirs(fname)
 
     if args.env:
-        history, metrics, best_score, trained_agent = run_ddpg(args.env)
+        history, metrics, best_score, trained_agent = run_ddpg(args.env, args.n_games)
         plot_running_avg(history, args.env)
         df = pd.DataFrame(metrics)
         df.to_csv(f"metrics/{args.env}_metrics.csv", index=False)
         save_best_version(args.env, trained_agent)
     else:
         for env_name in environments:
-            history, metrics, best_score, trained_agent = run_ddpg(env_name)
+            history, metrics, best_score, trained_agent = run_ddpg(env_name, args.n_games)
             plot_running_avg(history, env_name)
             df = pd.DataFrame(metrics)
             df.to_csv(f"metrics/{env_name}_metrics.csv", index=False)
