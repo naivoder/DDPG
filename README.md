@@ -118,7 +118,7 @@ This repository contains an implementation of the Deep Deterministic Policy Grad
         </td>
         <td>
             <p><b>Swimmer-v2</b></p>
-            <img src="environments/Swimmer-v2.gif" width="250" height="250"/>
+            <img src="environments/Swimmer-v3.gif" width="250" height="250"/>
         </td>
         <td>
             <p><b>Walker2d-v4</b></p>
@@ -130,7 +130,7 @@ This repository contains an implementation of the Deep Deterministic Policy Grad
             <img src="metrics/Reacher-v4_running_avg.png" width="250" height="250"/>
         </td>
         <td>
-            <img src="metrics/Swimmer-v2_running_avg.png" width="250" height="250"/>
+            <img src="metrics/Swimmer-v3_running_avg.png" width="250" height="250"/>
         </td>
         <td>
             <img src="metrics/Walker2d-v4_running_avg.png" width="250" height="250"/>

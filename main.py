@@ -24,7 +24,7 @@ environments = [
     "InvertedPendulum-v4",
     "Pusher-v4",
     "Reacher-v4",
-    "Swimmer-v2",
+    "Swimmer-v3",
     "Walker2d-v4",
 ]
 
