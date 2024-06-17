@@ -6,37 +6,67 @@ This repository contains an implementation of the Deep Deterministic Policy Grad
     <tr>
         <td>
             <p><b>Pendulum</b></p>
-            <img src="environments/Pendulum-v1.gif"  width="150" height="150"/>
+            <img src="environments/Pendulum-v1.gif" width="200" height="200"/>
         </td>
         <td>
             <p><b>LunarLanderContinuous</b></p>
-            <img src="environments/LunarLanderContinuous-v2.gif" width="150" height="150"/>
+            <img src="environments/LunarLanderContinuous-v2.gif" width="200" height="200"/>
         </td>
         <td>
             <p><b>MountainCarContinuous</b></p>
-            <img src="environments/MountainCarContinuous-v0.gif"  width="150" height="150"/>
+            <img src="environments/MountainCarContinuous-v0.gif" width="200" height="200"/>
         </td>
         <td>
             <p><b>BipedalWalker</b></p>
-            <img src="environments/BipedalWalker-v3.gif"  width="150" height="150"/>
+            <img src="environments/BipedalWalker-v3.gif" width="200" height="200"/>
         </td>
     </tr>
     <tr>
         <td>
+            <img src="metrics/Pendulum-v1_running_avg.png" width="200" height="200"/>
+        </td>
+        <td>
+            <img src="metrics/LunarLanderContinuous-v2_running_avg.png" width="200" height="200"/>
+        </td>
+        <td>
+            <img src="metrics/MountainCarContinuous-v0_running_avg.png" width="200" height="200"/>
+        </td>
+        <td>
+            <img src="metrics/BipedalWalker-v3_running_avg.png" width="200" height="200"/>
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>
             <p><b>Hopper</b></p>
-            <img src="environments/Hopper-v4.gif"  width="150" height="150"/>
+            <img src="environments/Hopper-v4.gif" width="200" height="200"/>
         </td>
         <td>
             <p><b>Humanoid</b></p>
-            <img src="environments/Humanoid-v4.gif"  width="150" height="150"/>
+            <img src="environments/Humanoid-v4.gif" width="200" height="200"/>
         </td>
         <td>
             <p><b>Ant</b></p>
-            <img src="environments/Ant-v4.gif"  width="150" height="150"/>
+            <img src="environments/Ant-v4.gif" width="200" height="200"/>
         </td>
         <td>
             <p><b>HalfCheetah</b></p>
-            <img src="environments/HalfCheetah-v4.gif"  width="150" height="150"/>
+            <img src="environments/HalfCheetah-v4.gif" width="200" height="200"/>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img src="metrics/Hopper-v4_running_avg.png" width="200" height="200"/>
+        </td>
+        <td>
+            <img src="metrics/Humanoid-v4_running_avg.png" width="200" height="200"/>
+        </td>
+        <td>
+            <img src="metrics/Ant-v4_running_avg.png" width="200" height="200"/>
+        </td>
+        <td>
+            <img src="metrics/HalfCheetah-v4_running_avg.png" width="200" height="200"/>
         </td>
     </tr>
 </table>
