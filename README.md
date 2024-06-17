@@ -117,7 +117,7 @@ This repository contains an implementation of the Deep Deterministic Policy Grad
             <img src="environments/Reacher-v4.gif" width="250" height="250"/>
         </td>
         <td>
-            <p><b>Swimmer-v2</b></p>
+            <p><b>Swimmer-v3</b></p>
             <img src="environments/Swimmer-v3.gif" width="250" height="250"/>
         </td>
         <td>
