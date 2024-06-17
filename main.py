@@ -6,6 +6,7 @@ import pandas as pd
 import warnings
 from argparse import ArgumentParser
 import os
+import torch
 
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
@@ -18,17 +19,25 @@ environments = [
     "Hopper-v4",
     "Humanoid-v4",
     "LunarLanderContinuous-v2",
+    "HumanoidStandup-v4",
+    "InvertedDoublePendulum-v4",
+    "InvertedPendulum-v4",
+    "Pusher-v4",
+    "Reacher-v4",
+    "Swimmer-v4",
+    "Walker2d-v4",
+    "CartPole-v1",
 ]
 
-for fname in ["metrics", "environments", "weights"]:
-    if not os.path.exists(fname):
-        os.makedirs(fname)
 
-
-def run_ddpg(env_name, seed, n_games=1000):
+def run_ddpg(env_name, n_games=1000, seed=None):
     env = gym.make(env_name, render_mode="rgb_array")
-    np.random.seed(seed)
-    agent = DDPGAgent(env_name, env.observation_space.shape, env.action_space.shape, tau=0.001)
+    if seed is not None:
+        np.random.seed(seed)
+        torch.manual_seed(seed)
+    agent = DDPGAgent(
+        env_name, env.observation_space.shape, env.action_space.shape, tau=0.001
+    )
 
     best_score = env.reward_range[0]
     history = []
@@ -66,29 +75,40 @@ def run_ddpg(env_name, seed, n_games=1000):
         )
 
         print(
-            f"[{env_name} Seed {seed} Episode {i + 1:04}/{n_games}]    Score = {score:7.4f}    Average = {avg_score:7.4f}",
+            f"[{env_name} Episode {i + 1:04}/{n_games}]    Score = {score:7.4f}    Average = {avg_score:7.4f}",
             end="\r",
         )
 
-    return history, metrics, best_score
+    return history, metrics, best_score, agent
 
 
-def save_best_version(env_name, best_seed):
-    env = gym.make(env_name, render_mode="rgb_array")
-    np.random.seed(best_seed)
-    agent = DDPGAgent(env_name, env.observation_space.shape, env.action_space.shape, tau=0.001)
-    agent.load_checkpoints()
+def save_best_version(env_name, agent, seeds=5):
+    best_total_reward = float("-inf")
+    best_frames = None
 
-    frames = []
-    state, _ = env.reset(seed=best_seed)
-    term, trunc = False, False
-    while not term and not trunc:
-        frames.append(env.render())
-        action = agent.choose_action(state)
-        next_state, reward, term, trunc, _ = env.step(action)
-        state = next_state
+    for seed in range(seeds):
+        env = gym.make(env_name, render_mode="rgb_array")
+        np.random.seed(seed)
+        torch.manual_seed(seed)
 
-    save_animation(frames, f"environments/{env_name}.gif")
+        frames = []
+        total_reward = 0
+
+        state, _ = env.reset(seed=seed)
+        term, trunc = False, False
+        while not term and not trunc:
+            frames.append(env.render())
+            action = agent.choose_action(state)
+            next_state, reward, term, trunc, _ = env.step(action)
+            state = next_state
+            total_reward += reward
+
+        if total_reward > best_total_reward:
+            best_total_reward = total_reward
+            best_frames = frames
+
+    save_animation(best_frames, f"environments/{env_name}.gif")
+    print(f"Total reward for saved animation: {best_total_reward}")
 
 
 if __name__ == "__main__":
@@ -98,40 +118,20 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
+    for fname in ["metrics", "environments", "weights"]:
+        if not os.path.exists(fname):
+            os.makedirs(fname)
+
     if args.env:
-        best_score = float("-inf")
-        best_history = None
-        best_metrics = None
-        best_seed = None
-
-        for seed in range(5):
-            history, metrics, score = run_ddpg(args.env, seed)
-            if score > best_score:
-                best_score = score
-                best_history = history
-                best_metrics = metrics
-                best_seed = seed
-
-        plot_running_avg(best_history, args.env)
-        df = pd.DataFrame(best_metrics)
+        history, metrics, best_score, trained_agent = run_ddpg(args.env)
+        plot_running_avg(history, args.env)
+        df = pd.DataFrame(metrics)
         df.to_csv(f"metrics/{args.env}_metrics.csv", index=False)
-        save_best_version(args.env, best_seed)
+        save_best_version(args.env, trained_agent)
     else:
         for env_name in environments:
-            best_score = float("-inf")
-            best_history = None
-            best_metrics = None
-            best_seed = None
-
-            for seed in range(5):
-                history, metrics, score = run_ddpg(env_name, seed)
-                if score > best_score:
-                    best_score = score
-                    best_history = history
-                    best_metrics = metrics
-                    best_seed = seed
-
-            plot_running_avg(best_history, env_name)
-            df = pd.DataFrame(best_metrics)
+            history, metrics, best_score, trained_agent = run_ddpg(env_name)
+            plot_running_avg(history, env_name)
+            df = pd.DataFrame(metrics)
             df.to_csv(f"metrics/{env_name}_metrics.csv", index=False)
-            save_best_version(env_name, best_seed)
+            save_best_version(env_name, trained_agent)
