@@ -160,8 +160,7 @@ python main.py --env 'LunarLanderContinuous-v2'
     </tr>
 </table>
 
-No hyper-parameter tuning was conducted for these benchmarks. This was an intentional choice to compare the generalized algorithm performance across a variety of environments. As such, there are several cases where the agent fails to the effectively learn, and others where the agent was still learning after 1000 epochs. I personally find it rather interesting that the algorithm does well on tasks like the mountain car and lunar lander, while it appears to struggle with the inverted pendulum. DDPG is notable for being brittle to starting conditions and hyper-parameter choices which can affect its perfoormance, a limitation addressed by subsequent improvments in algorithms like Soft Actor-Critic (SAC) and Proximal Policy Optimization (PPO). 
-
+No hyper-parameter tuning was conducted for these benchmarks. This was an intentional choice to compare the generalized algorithm performance across a variety of environments. As such, there are several cases where the agent fails to the effectively learn, and others where the agent was still learning after 10k epochs. DDPG is notably brittle to starting conditions and hyper-parameter choices which can affect its perfoormance, a limitation addressed by subsequent improvments in algorithms like Soft Actor-Critic (SAC) and Proximal Policy Optimization (PPO). 
 
 ## Acknowledgements
 
