@@ -6,7 +6,7 @@ class ActorNetwork(torch.nn.Module):
     def __init__(
         self,
         input_shape,
-        n_actions,
+        action_space,
         h1_size=400,
         h2_size=300,
         lr=1e-4,
@@ -14,7 +14,7 @@ class ActorNetwork(torch.nn.Module):
     ):
         super(ActorNetwork, self).__init__()
         self.input_shape = input_shape
-        self.n_actions = n_actions
+        self.action_space = action_space
         self.h1_size = h1_size
         self.h2_size = h2_size
         self.lr = lr
@@ -28,7 +28,7 @@ class ActorNetwork(torch.nn.Module):
         self.ln1 = torch.nn.LayerNorm(self.h1_size)
         self.ln2 = torch.nn.LayerNorm(self.h2_size)
 
-        self.out_layer = torch.nn.Linear(self.h2_size, *self.n_actions)
+        self.out_layer = torch.nn.Linear(self.h2_size, self.action_space.shape[0])
 
         self.init_weights()
 
@@ -36,6 +36,10 @@ class ActorNetwork(torch.nn.Module):
 
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.to(self.device)
+
+        self.action_min = torch.tensor(self.action_space.low, device=self.device)
+        self.action_max = torch.tensor(self.action_space.high, device=self.device)
+        self.action_range = self.action_max - self.action_min
 
     def init_weights(self):
         f1 = 1.0 / np.sqrt(self.h1_layer.weight.data.size()[0])
@@ -58,10 +62,11 @@ class ActorNetwork(torch.nn.Module):
         state = self.h2_layer(state)
         state = torch.nn.functional.relu(self.ln2(state))
 
-        return torch.nn.functional.tanh(self.out_layer(state))
+        output = torch.nn.functional.tanh(self.out_layer(state))
+        scaled_output = self.action_min + (output + 1.0) * 0.5 * self.action_range
+        return scaled_output
 
     def save_checkpoint(self, epoch, loss):
-        # torch.save(self.state_dict(), self.chkpt_path)
         torch.save(
             {
                 "epoch": epoch,
@@ -73,7 +78,6 @@ class ActorNetwork(torch.nn.Module):
         )
 
     def load_checkpoint(self):
-        # self.load_state_dict(torch.load(self.chkpt_path))
         chkpt = torch.load(self.chkpt_path)
         self.load_state_dict(chkpt["model_state_dict"])
         self.optimizer.load_state_dict(chkpt["optimizer_state_dict"])
