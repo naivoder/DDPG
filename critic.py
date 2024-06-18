@@ -15,7 +15,7 @@ class CriticNetwork(torch.nn.Module):
     ):
         super(CriticNetwork, self).__init__()
         self.input_shape = input_shape
-        self.n_actions = n_actions
+        self.n_actions = n_actions.shape[0]
         self.h1_size = h1_size
         self.h2_size = h2_size
         self.lr = lr
@@ -31,7 +31,7 @@ class CriticNetwork(torch.nn.Module):
         self.ln2 = torch.nn.LayerNorm(self.h2_size)
 
         # from paper - action vals aren't input until after 2nd hidden layer
-        self.action_vals = torch.nn.Linear(*self.n_actions, self.h2_size)
+        self.action_vals = torch.nn.Linear(self.n_actions, self.h2_size)
 
         self.out_layer = torch.nn.Linear(self.h2_size, 1)
 

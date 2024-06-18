@@ -35,7 +35,7 @@ def run_ddpg(env_name, n_games=1000, seed=None):
         np.random.seed(seed)
         torch.manual_seed(seed)
     agent = DDPGAgent(
-        env_name, env.observation_space.shape, env.action_space.shape, tau=0.001
+        env_name, env.observation_space, env.action_space, tau=0.001
     )
 
     best_score = env.reward_range[0]
@@ -87,15 +87,13 @@ def save_best_version(env_name, agent, seeds=10):
     best_total_reward = float("-inf")
     best_frames = None
 
-    for seed in range(seeds):
+    for _ in range(seeds):
         env = gym.make(env_name, render_mode="rgb_array")
-        np.random.seed(seed)
-        torch.manual_seed(seed)
 
         frames = []
         total_reward = 0
 
-        state, _ = env.reset(seed=seed)
+        state, _ = env.reset()
         term, trunc = False, False
         while not term and not trunc:
             frames.append(env.render())
@@ -117,7 +115,7 @@ if __name__ == "__main__":
         "-e", "--env", default=None, help="Environment name from Gymnasium"
     )
     parser.add_argument(
-        "-n", "--n_games", default=1000, help="Number of episodes (games) to run during training"
+        "-n", "--n_games", default=1000, type=int, help="Number of episodes (games) to run during training"
     )
     args = parser.parse_args()
 

@@ -27,7 +27,7 @@ class DDPGAgent(torch.nn.Module):
         self.batch_size = batch_size
 
         self.replay_buffer = ReplayBuffer(input_dims, n_actions, buffer_length=mem_size)
-        self.action_noise = OrnsteinUhlenbeckActionNoise(np.zeros(n_actions))
+        self.action_noise = OrnsteinUhlenbeckActionNoise(np.zeros(n_actions.shape[0]))
 
         self.actor = ActorNetwork(
             input_dims,
