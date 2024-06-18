@@ -35,7 +35,7 @@ def run_ddpg(env_name, n_games=1000, seed=None):
         np.random.seed(seed)
         torch.manual_seed(seed)
     agent = DDPGAgent(
-        env_name, env.observation_space, env.action_space, tau=0.001
+        env_name, env.observation_space.shape, env.action_space, tau=0.001
     )
 
     best_score = env.reward_range[0]
